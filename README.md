@@ -12,13 +12,13 @@ I like Apple. I like the fruit too, but here I mean the company that keeps tryin
 
 ## Install
 
-Download the installer for your platform from [GitHub Releases](https://github.com/woodychoi777/Cove/releases). Verify your download with the SHA-256 checksums on the release page.
+Download the installer for your platform from [GitHub Releases](https://github.com/woodychoi777/Cove_Offline_Music_Player/releases). Verify your download with the SHA-256 checksums on the release page.
 
 - **Mac, Apple Silicon, macOS 13 or later.** Open the DMG and move Cove to Applications. The app is ad-hoc signed and is not notarized. If macOS blocks the launch, see [Apple's app-opening instructions](https://support.apple.com/en-gb/102445).
 - **Windows 10/11, x64 preview.** Run the setup EXE for a per-user installation, or extract the entire portable ZIP and open Cove.exe from the extracted folder. Windows builds are unsigned. The packaged app has been exercised on a GitHub Windows runner. Installation and removal still need physical Windows testing. [Windows build and verification notes](docs/public/WINDOWS.md)
 - **Language.** Choose System, English, Simplified Chinese, Korean, or Japanese in **Settings → Appearance → Language**. Quit and reopen Cove to apply your choice.
 
-On first launch, create a library or open an existing one. New libraries default to **Music/Cove**. To reconnect an existing library, select the folder containing both `soriseojae.sqlite` and the `library` subfolder.
+On first launch, choose where Cove will store your music. Select **Use this folder** for the default **Music/Cove** location, or **Choose another folder** for an empty folder elsewhere. Your original music files stay in place when you add them. To reconnect your previous collection and notes, choose **Open existing Cove folder** and select the folder previously used by Cove.
 
 ## Add and play music
 
@@ -46,6 +46,8 @@ Cove organizes its managed audio by artist, album, and track number using file t
 
 Before updating, save any drafts and quit Cove. On Mac, replace the app in Applications. On Windows, run the new setup EXE. Cove can reconnect a moved library from its startup dialog.
 
+On Windows, the top menu bar is removed. Use the sidebar and Settings for app controls; **Ctrl+O**, **Ctrl+Q**, **Ctrl+W**, **Ctrl+plus/minus/0**, and **F11** remain available. **Settings → Quit Cove** exits the app even when an armed alarm keeps it in the background.
+
 The alarm requires Cove to be running. Wake from sleep depends on the Mac setup and is unavailable on Windows. If Cove has trouble reading your library, check the selected path or the `service.log` in that library. Please remove private paths and personal data before sharing diagnostics.
 
 ## Develop
@@ -53,5 +55,7 @@ The alarm requires Cove to be running. Wake from sleep depends on the Mac setup 
 Use Node.js 24 or later. Run `npm ci` and `npm start`, then open `http://127.0.0.1:4317`. See the [development guide](docs/public/DEVELOPMENT.md) for tests and packaging.
 
 Cove source is available under the [MIT License](LICENSE). See [third-party notices](THIRD_PARTY_NOTICES.md) for bundled dependencies.
+
+Set a sleep timer from the timer icon beside the volume control: 10, 15, 25, or 55 minutes. It pauses playback while keeping the queue and position. Changing tracks does not reset it; quitting or reloading cancels it. A wake-up alarm cancels the sleep timer.
 
 Made by woodychoi777
