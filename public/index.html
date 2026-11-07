@@ -133,8 +133,19 @@
     <button id="mini-track" class="mini-track" aria-label="현재 곡 열기"></button>
     <div class="mini-center"><div class="mini-transport"><button type="button" class="icon-button playback-mode" id="mini-shuffle" aria-label="셔플: 끔" aria-pressed="false" title="셔플: 끔"><span data-icon="shuffle"></span></button><button type="button" class="icon-button" id="mini-prev" aria-label="이전 곡" aria-keyshortcuts="ArrowLeft" title="이전 곡 (←)"><span data-icon="skip-back"></span></button><button type="button" class="icon-button play-large" id="mini-play" aria-label="재생" aria-keyshortcuts="Space" title="재생 (Space)"><span data-icon="play"></span></button><button type="button" class="icon-button" id="mini-next" aria-label="다음 곡" aria-keyshortcuts="ArrowRight" title="다음 곡 (→)"><span data-icon="skip-forward"></span></button><button type="button" class="icon-button playback-mode" id="mini-repeat" aria-label="반복: 끔" aria-pressed="false" title="반복: 끔"><span data-icon="repeat"></span></button></div>
     <div class="mini-timeline"><span id="mini-elapsed" class="player-time" aria-hidden="true">0:00</span><input id="mini-seek" class="seek-range" type="range" min="0" max="1" step="0.1" value="0" aria-label="현재 곡 재생 위치"><span id="mini-time" class="player-time" aria-hidden="true">0:00</span></div></div>
-    <div class="mini-end"><div id="mini-status-row" class="mini-error-slot"><button class="icon-button" id="playback-error-open" aria-label="재생 문제 · 자세히 및 다시 시도" title="재생 문제 · 다시 시도" aria-haspopup="dialog" hidden><span data-icon="alert"></span></button></div><button class="icon-button" id="volume-open" aria-label="음소거" title="음소거" aria-pressed="false"><span data-icon="volume-2"></span></button><input id="mini-volume-inline" class="desktop-volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="음량" aria-keyshortcuts="ArrowUp ArrowDown" title="음량 (↑ ↓)"></div>
+    <div class="mini-end"><div id="mini-status-row" class="mini-error-slot"><button class="icon-button" id="playback-error-open" aria-label="재생 문제 · 자세히 및 다시 시도" title="재생 문제 · 다시 시도" aria-haspopup="dialog" hidden><span data-icon="alert"></span></button></div><button type="button" class="icon-button sleep-timer-button" id="sleep-timer-open" popovertarget="sleep-timer-panel" aria-label="재생 중지 타이머" title="재생 중지 타이머" aria-haspopup="dialog" aria-expanded="false" aria-controls="sleep-timer-panel"><span data-icon="timer"></span><span class="timer-badge" data-timer-badge aria-hidden="true" hidden></span></button><button class="icon-button" id="volume-open" aria-label="음소거" title="음소거" aria-pressed="false"><span data-icon="volume-2"></span></button><input id="mini-volume-inline" class="desktop-volume" type="range" min="0" max="1" step="0.05" value="0.8" aria-label="음량" aria-keyshortcuts="ArrowUp ArrowDown" title="음량 (↑ ↓)"></div>
   </aside>
+  <section id="sleep-timer-panel" class="sleep-timer-panel" popover="auto" role="dialog" aria-labelledby="sleep-timer-title">
+    <h2 id="sleep-timer-title">재생 중지 타이머</h2>
+    <p id="sleep-timer-remaining" hidden></p>
+    <div class="sleep-timer-options">
+      <button type="button" class="secondary-button" data-sleep-minutes="10" aria-pressed="false">10분 뒤</button>
+      <button type="button" class="secondary-button" data-sleep-minutes="15" aria-pressed="false">15분 뒤</button>
+      <button type="button" class="secondary-button" data-sleep-minutes="25" aria-pressed="false">25분 뒤</button>
+      <button type="button" class="secondary-button" data-sleep-minutes="55" aria-pressed="false">55분 뒤</button>
+    </div>
+    <button type="button" class="text-button" id="sleep-timer-cancel" hidden>타이머 취소</button>
+  </section>
   <div id="queue-dock"><button type="button" class="icon-button" id="queue-open" aria-label="대기열 열기" title="대기열 열기" aria-expanded="false" aria-controls="queue-panel" aria-haspopup="dialog"><span data-icon="list-music"></span></button></div>
   <section id="queue-panel" class="queue-panel" popover="manual" role="dialog" aria-labelledby="queue-title">
     <header class="queue-header"><h2 id="queue-title">대기열</h2><button type="button" class="icon-button" id="queue-close" aria-label="대기열 닫기" title="닫기"><span data-icon="x"></span></button></header>
@@ -215,7 +226,7 @@
         <p id="library-path" class="folder-path">경로 확인 중</p><button type="button" class="text-button" id="library-folder-open" hidden>보관 폴더 열기</button><p id="library-folder-error" class="error-message" role="alert" hidden></p>
         <section class="storage-details"><p><span id="stat-track-count">0곡</span> · <span id="stat-size">0 B</span> · 최애곡 <span id="stat-life-count">0곡</span></p></section><a class="secondary-button setting-action" href="/api/export" download><span data-icon="download"></span> 기록 내보내기(JSON)</a><p class="section-description settings-export-help">곡 정보·가사·번역·개인 기록·플레이리스트·저장한 대기열을 저장합니다. 음원 파일과 표지는 포함하지 않습니다.</p></details>
       </section>
-      <section class="settings-section settings-about"><h3 class="sr-only">앱 정보</h3><p>Cove · 음악과 기록을 내 서재에</p><p class="settings-signature">Made by woodychoi777</p></section>
+      <section class="settings-section settings-about"><h3 class="sr-only">앱 정보</h3><p>Cove · 음악과 기록을 내 서재에</p><p class="settings-signature">Made by woodychoi777</p><button type="button" class="text-button" id="app-quit" hidden>Cove 종료</button></section>
     </div>
   </dialog>
 

@@ -46,6 +46,14 @@ hydrateIcons();
 document.querySelectorAll('dialog').forEach(setupDialog);
 document.querySelector('#settings-open').addEventListener('click', event => { openDialog(document.querySelector('#settings-dialog'), event.currentTarget); void autoImportSettings.refresh(); });
 const settingsDialog = document.querySelector('#settings-dialog');
+const quitButton = document.querySelector('#app-quit');
+if (window.covePlatform === 'win32' && window.coveApp) {
+  quitButton.hidden = false;
+  quitButton.addEventListener('click', async () => {
+    try { const response = await window.coveApp.quit(); if (!response?.ok) throw Error(response?.error || t('Cove를 종료하지 못했습니다. 다시 시도해주세요.')); }
+    catch (error) { showToast(t(error.message)); }
+  });
+}
 let settingsBackdropDown = false;
 const outsideSettings = event => {
   const box = settingsDialog.getBoundingClientRect();
@@ -131,7 +139,7 @@ document.querySelector('#open-imported').addEventListener('click', () => navigat
 document.querySelector('#play-imported').addEventListener('click', () => playList(state.importedTracks, t('추가한 곡')));
 document.querySelector('#review-failed').addEventListener('click', reviewFailedImports);
 
-listeningUI = setupListeningUI({ player, state, openTrack, playList, refresh: refreshState, toast: showToast, escapeHtml, formatTime, coverMarkup });
+listeningUI = setupListeningUI({ player, state, openTrack, playList, refresh: refreshState, toast: showToast, escapeHtml, formatTime, coverMarkup, alarmActive: () => alarmUI?.session?.mode === 'alarm' });
 comments = setupComments({ getTrack: id => state.selectedTrack?.id === id ? state.selectedTrack : state.tracks.find(track => track.id === id), toast: showToast, onSaved: result => {
   stateRequest += 1;
   const fields = Object.fromEntries(['meaning', 'favoriteReason', 'memory'].map(key => [key, result[key]]));

@@ -5,12 +5,14 @@ import { artistName, joined, metadataText } from './metadata-display.js';
 import { LoadingCue } from './loading-cue.js';
 import { openDialog, retainFocus, bindRowPlayback } from './ui.js';
 import { setupQueuePopup } from './queue-popup.js';
+import { setupSleepTimer } from './sleep-timer-ui.js';
 import { contentPosition, scrollContent, revealWithin } from './scroll.js';
 
-export function setupListeningUI({ player, state, openTrack, playList, refresh, toast, escapeHtml: esc, formatTime: time, coverMarkup }) {
+export function setupListeningUI({ player, state, openTrack, playList, refresh, toast, escapeHtml: esc, formatTime: time, coverMarkup, alarmActive = () => false }) {
   let miniId = null, savingQueue = false, playbackError = '';
   const loadingCue = new LoadingCue({ onChange: () => updateMini() });
   const queuePopup = setupQueuePopup({ onOpen: () => renderQueue(true) });
+  setupSleepTimer({ player, alarmActive, onOpen: () => queuePopup.close(), toast, formatTime: time });
   const track = id => state.tracks.find(item => item.id === id);
   const post = async (path, body) => {
     const response = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });

@@ -5,7 +5,7 @@ import { artistName } from './metadata-display.js';
 
 export function setupAlarmUI({ player, state, openTrack, toast, bridge = window.coveAlarm }) {
   if (window.covePlatform === 'win32') {
-    document.querySelector('.alarm-help').innerHTML = localizeMarkup`<summary>실행과 음량 안내</summary><p>Cove가 실행 중일 때 알람이 울립니다. Windows 잠자기 깨우기는 지원하지 않습니다. 알람이 켜져 있으면 창을 닫아도 백그라운드에서 대기하며, 파일 → Cove 종료로 완전히 종료할 수 있습니다.</p><p>실제 소리 크기는 Windows와 출력 장치의 음량에도 영향을 받습니다. 시스템 음량·음소거는 변경하지 않습니다.</p>`;
+    document.querySelector('.alarm-help').innerHTML = localizeMarkup`<summary>실행과 음량 안내</summary><p>Cove가 실행 중일 때 알람이 울립니다. Windows 잠자기 깨우기는 지원하지 않습니다. 알람이 켜져 있으면 창을 닫아도 백그라운드에서 대기하며, 설정 → Cove 종료로 완전히 종료할 수 있습니다.</p><p>실제 소리 크기는 Windows와 출력 장치의 음량에도 영향을 받습니다. 시스템 음량·음소거는 변경하지 않습니다.</p>`;
   }
   if (!bridge) return { hasUnsaved: () => false };
   const $ = selector => document.querySelector(selector);

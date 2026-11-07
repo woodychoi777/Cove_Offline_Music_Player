@@ -28,6 +28,7 @@ const paths = {
   shuffle: '<path d="m18 3 4 4-4 4M2 17h3c5 0 6-10 11-10h6M2 7h3c2 0 3 1 4 3m4 4c1 2 2 3 4 3h5m-4-4 4 4-4 4"/>',
   repeat: '<path d="m17 2 4 4-4 4M3 11V8a2 2 0 0 1 2-2h16M7 22l-4-4 4-4m14-1v3a2 2 0 0 1-2 2H3"/>',
   'repeat-one': '<path d="m17 2 4 4-4 4M3 11V8a2 2 0 0 1 2-2h16M7 22l-4-4 4-4m14-1v3a2 2 0 0 1-2 2H3m8-7 2-1v5"/>',
+  timer: '<circle cx="12" cy="14" r="8"/><path d="M12 10v4l3 2M9 2h6m-3 0v4m6-1 2 2"/>',
   loader: '<path d="M21 12a9 9 0 1 1-6-8.5"/>',
   alert: '<path d="m12 3 10 18H2L12 3Zm0 6v5m0 3v1"/>'
 };

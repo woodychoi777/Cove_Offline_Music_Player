@@ -751,3 +751,19 @@ body:is([data-route="home"],[data-route="library"]) :is(.main-content,.sidebar,.
 .comments-heading { position: sticky; top: 0; z-index: 1; background: var(--surface); }
 #comments-dialog { scrollbar-width: none; }
 #comments-dialog::-webkit-scrollbar { display: none; }
+
+/* Sleep timer shares the quiet, non-modal player controls. */
+.sleep-timer-button { position: relative; }
+.sleep-timer-button.is-active { color: var(--strong); background: var(--selected); }
+.timer-badge { position: absolute; right: 1px; top: 0; font-size: 10px; font-weight: 650; line-height: 1.2; font-variant-numeric: tabular-nums; background: var(--surface); border-radius: 4px; padding: 1px 2px; }
+.sleep-timer-panel { position: fixed; inset: auto 16px calc(var(--player-height,0px) + 8px) auto; margin: 0; width: min(264px,calc(100vw - 24px)); max-height: calc(100dvh - var(--player-height,0px) - 24px); overflow: auto; padding: 16px; border: 1px solid var(--line); border-radius: 14px; color: var(--text); background: var(--surface); box-shadow: var(--shadow-popover); }
+.sleep-timer-panel h2 { margin: 0 0 12px; font-size: 15px; }
+#sleep-timer-remaining { margin: 0 0 12px; color: var(--muted); font-size: 13px; font-variant-numeric: tabular-nums; }
+.sleep-timer-options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sleep-timer-options button { min-height: 44px; }
+.sleep-timer-options button[aria-pressed="true"] { color: var(--strong); background: var(--selected); border-color: var(--strong); }
+#sleep-timer-cancel { display: block; margin: 12px 0 0; min-height: 44px; width: 100%; }
+#sleep-timer-cancel[hidden] { display: none; }
+
+
+#app-quit { min-height: 44px; margin-left: auto; }
