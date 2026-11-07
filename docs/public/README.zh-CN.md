@@ -8,13 +8,13 @@ Cove 是开源的离线音乐播放器和本地音乐库。用它播放自己的
 
 ## 安装
 
-前往 [GitHub Releases](https://github.com/woodychoi777/Cove/releases) 下载，并核对发布页提供的 SHA-256 校验值。
+前往 [GitHub Releases](https://github.com/woodychoi777/Cove_Offline_Music_Player/releases) 下载，并核对发布页提供的 SHA-256 校验值。
 
 - **Mac（Apple 芯片，macOS 13 或更高）**：打开 DMG，把 Cove 拖到「应用程序」。安装包未经 Apple 公证，如遇拦截，请参照 [Apple 的说明](https://support.apple.com/zh-cn/102445)。
 - **Windows（10/11，x64 预览版）**：运行 EXE 安装到当前用户，或完整解压便携 ZIP 后运行 Cove.exe。Windows 安装包未签名，已在 GitHub Windows 运行环境验证打包与播放，仍需在实体设备上验证安装和卸载。
 - 在 **设置 → 外观 → 语言** 中选择简体中文，退出并重新打开 Cove。
 
-首次打开时可创建音乐库（默认在「音乐/Cove」），也可打开包含 `soriseojae.sqlite` 和 `library` 子文件夹的已有音乐库。
+首次启动时选择音乐保存位置：默认使用“音乐/Cove”，也可以选择其他空文件夹。原有音乐和记录可通过“打开已有 Cove 文件夹”继续使用。进入应用后，通过“添加音乐”导入原始音乐文件。
 
 ## 添加与播放
 
@@ -38,5 +38,9 @@ Cove 是开源的离线音乐播放器和本地音乐库。用它播放自己的
 **设置 → 存储与导出** 可以查看音乐库位置并导出 JSON 记录。完整备份应在退出 Cove 后复制整个音乐库文件夹，其中包含音频和封面。更新前保存草稿并退出，Mac 替换应用，Windows 运行新版安装程序。
 
 [开发说明](DEVELOPMENT.md) · [MIT 许可证](../../LICENSE)
+
+点击音量旁的定时按钮，可设置 10、15、25 或 55 分钟后暂停播放，并保留播放位置和队列。切换歌曲不会重置定时；退出、刷新或起床闹钟启动时会取消定时。
+
+Windows 不再显示顶部菜单栏；在“设置 → 退出 Cove”或按 Ctrl+Q 可彻底退出。
 
 Made by woodychoi777

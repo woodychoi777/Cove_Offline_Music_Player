@@ -6,7 +6,7 @@ Windows 10/11 x64용 `Cove-Setup-0.1.19-x64.exe`입니다. Mac에서 Electron 45
 
 설치는 현재 사용자의 `%LOCALAPPDATA%\Programs\Cove`에 고정합니다. 서재 기본 제안 위치는 사용자의 Music\Cove이며, 시작 시 다른 빈 폴더나 기존 서재를 선택할 수 있습니다. 사용자 설정·대기열·밝기는 `%APPDATA%\Cove` 프로필에 보관합니다. 업데이트/제거 과정은 이 두 보관 위치를 지우지 않습니다.
 
-설치와 제거 전에 Cove를 완전히 종료하세요. 앱이 떠 있으면 설치/제거를 중단합니다. 알람이 켜져 창만 숨겨진 경우 파일 → Cove 종료를 사용하세요. 제거기는 패키지의 파일 목록만 지우고, 나중에 같은 설치 폴더 안에 생긴 다른 파일은 보존합니다.
+설치와 제거 전에 Cove를 완전히 종료하세요. 앱이 떠 있으면 설치/제거를 중단합니다. 알람이 켜져 창만 숨겨진 경우 설정 → Cove 종료를 사용하세요. 제거기는 패키지의 파일 목록만 지우고, 나중에 같은 설치 폴더 안에 생긴 다른 파일은 보존합니다.
 
 알람은 앱 실행 중에만 울립니다. Windows 잠자기 깨우기는 구현하지 않았습니다. 미디어 명령은 Chromium Media Session을 사용하며 Mac의 MediaPlayer 네이티브 모듈은 포함하지 않습니다. 폴더 선택·탐색기 열기, 파일 추가·가사·기록·플레이리스트·대기열은 공통 구현입니다.
 
@@ -29,3 +29,5 @@ Windows 10/11 x64용 `Cove-Setup-0.1.19-x64.exe`입니다. Mac에서 Electron 45
 산출물은 `dist/Cove-win32-x64/`와 `dist/Cove-Setup-0.1.19-x64.exe`입니다. 실행 EXE는 64비트이며, 설치기 부트스트랩은 NSIS의 32비트 PE로 64비트 Windows에서 64비트 앱을 설치합니다. [NSIS 라이선스](NSIS-LICENSE.txt)를 함께 제공합니다.
 
 참고: [Electron Packager](https://electron.github.io/packager/main/), [NSIS 스크립트/제거기](https://nsis.sourceforge.io/Docs/Chapter4.html). 인증서 서명과 Microsoft Store 배포는 별도 작업입니다.
+
+0.1.23부터 상단 메뉴바는 표시하지 않습니다. 음악 추가 Ctrl+O, 앱 종료 Ctrl+Q, 창 닫기 Ctrl+W, 확대/축소 Ctrl+plus/minus/0, 전체 화면 F11은 유지합니다. 재생 중지는 하단 타이머 아이콘에서 10·15·25·55분으로 설정하고 취소합니다. 첫 실행은 음악 보관 폴더를 고르는 안내로 정리했습니다.

@@ -10,15 +10,15 @@ Today에서 오늘 들을 곡을 고르고, Collection에서 소장곡과 플레
 
 ## 설치
 
-[**설치 파일 다운로드**](https://github.com/woodychoi777/Cove/releases) · Mac Apple Silicon / Windows x64 미리보기
+[**설치 파일 다운로드**](https://github.com/woodychoi777/Cove_Offline_Music_Player/releases) · Mac Apple Silicon / Windows x64 미리보기
 
-**Mac:** `Cove-0.1.20-mac-arm64.dmg`에서 Cove를 Applications로 옮깁니다. Apple Silicon 전용이며 Node.js 설치는 필요하지 않습니다. 패키지 최소 요구 버전은 macOS 13, 검증 환경은 macOS 15.7.4 · arm64입니다. 로컬 ad-hoc 서명이며 Apple 공증을 받지 않았습니다. 차단되면 [Apple의 앱 실행 안내](https://support.apple.com/en-gb/102445)를 확인하세요.
+**Mac:** `Cove-0.1.23-mac-arm64.dmg`에서 Cove를 Applications로 옮깁니다. Apple Silicon 전용이며 Node.js 설치는 필요하지 않습니다. 패키지 최소 요구 버전은 macOS 13, 검증 환경은 macOS 15.7.4 · arm64입니다. 로컬 ad-hoc 서명이며 Apple 공증을 받지 않았습니다. 차단되면 [Apple의 앱 실행 안내](https://support.apple.com/en-gb/102445)를 확인하세요.
 
-**Windows:** `Cove-Setup-0.1.20-x64.exe`를 실행합니다. Windows 10/11 x64용 설치 후보이며 사용자 계정에 설치합니다. 관리자 권한을 요구하지 않습니다. 대안인 `Cove-0.1.20-windows-x64.zip`은 폴더 전체를 풀고 안의 `Cove.exe`를 실행하세요. EXE만 떼어 옮기면 실행할 수 없습니다. Windows 서명 인증서는 적용하지 않았습니다.
+**Windows:** `Cove-Setup-0.1.23-x64.exe`를 실행합니다. Windows 10/11 x64용 설치 후보이며 사용자 계정에 설치합니다. 관리자 권한을 요구하지 않습니다. 대안인 `Cove-0.1.23-windows-x64.zip`은 폴더 전체를 풀고 안의 `Cove.exe`를 실행하세요. EXE만 떼어 옮기면 실행할 수 없습니다. Windows 서명 인증서는 적용하지 않았습니다.
 
 제공된 SHA-256으로 내려받은 파일을 확인하세요. **Windows 실기기 설치·재생은 아직 검증하지 않았습니다.** 공개 후보의 빌드와 정적 구조를 확인한 상태이며, 저장소의 Windows CI와 [Windows 확인 절차](WINDOWS.md)를 통과한 뒤 일반 배포를 권장합니다. Intel Mac·Windows ARM 전용·모바일 설치판은 제공하지 않습니다.
 
-첫 실행에서 **새 서재 시작** 또는 **기존 서재 열기**를 선택합니다. 새 서재 기본 위치는 사용자의 **음악/Cove**이며 ‘보관 위치 변경’으로 바꿀 수 있습니다. 기존 서재는 `soriseojae.sqlite`와 `library`가 함께 있는 폴더를 선택하세요.
+첫 실행에서 음악을 보관할 폴더를 정합니다. 기본 **음악/Cove**를 쓰려면 **이 폴더로 시작**, 다른 빈 폴더를 쓰려면 **다른 폴더 선택**을 누르세요. 이전 음악과 기록은 **기존 Cove 폴더 열기**로 연결합니다. 원본 음악 파일은 시작한 뒤 ‘음악 추가’로 넣습니다.
 
 설정의 **화면 → 언어**에서 시스템 설정, English, 简体中文, 한국어, 日本語를 선택할 수 있습니다. 언어 선택은 Cove를 다시 열면 적용됩니다.
 
@@ -86,5 +86,9 @@ Cove가 실행 중일 때만 자동 추가합니다. 웹 버전에는 설치 앱
 Node.js 24 이상에서 `npm ci` 후 `npm start`를 실행하고 `http://127.0.0.1:4317`을 엽니다. 개발용 기본 서재는 프로젝트의 `data/`입니다. `SORISEOJAE_DATA_DIR`과 `PORT`로 분리할 수 있습니다. 설치 앱은 이 개발 경로를 포함하지 않습니다.
 
 개발·검사·패키징 방법은 [개발 안내](DEVELOPMENT.md), 외부 라이선스는 [의존성 고지](../../THIRD_PARTY_NOTICES.md)를 참고하세요. Cove 소스는 [MIT 라이선스](../../LICENSE)이며 음악 파일의 권리는 각 권리자에게 있습니다.
+
+음량 옆 타이머 버튼에서 10·15·25·55분 뒤 재생 중지를 설정할 수 있습니다. 곡을 바꿔도 유지되며, 종료 시 곡 위치와 대기열을 유지한 채 일시정지합니다. 앱 종료·새로고침 또는 기상 알람 시작 시 타이머는 해제됩니다.
+
+Windows 상단 메뉴바는 표시하지 않으며, 앱 종료는 **설정 → Cove 종료** 또는 Ctrl+Q입니다.
 
 Made by woodychoi777
