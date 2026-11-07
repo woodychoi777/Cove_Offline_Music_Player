@@ -6,6 +6,7 @@ contextBridge.exposeInMainWorld('coveLanguage', Object.freeze({
   save: value => ipcRenderer.invoke('language:save', value)
 }));
 contextBridge.exposeInMainWorld('covePlatform', process.platform);
+if (process.platform === 'win32') contextBridge.exposeInMainWorld('coveApp', Object.freeze({ quit: () => ipcRenderer.invoke('app:quit') }));
 contextBridge.exposeInMainWorld('coveFolders', Object.freeze({
   openAutoImport: () => ipcRenderer.invoke('auto-import:open-folder'),
   chooseAutoImport: () => ipcRenderer.invoke('auto-import:choose-folder'),

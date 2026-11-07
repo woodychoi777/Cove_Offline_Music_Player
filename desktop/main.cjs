@@ -160,6 +160,18 @@ function showWindow() {
   alarmReady = false;
   window.webContents.on('did-start-loading', () => { alarmReady = false; systemMedia?.reset(); });
   window.webContents.on('before-input-event', (event, input) => {
+    if (process.platform === 'win32' && input.type === 'keyDown' && !heldAlarmKey && !alarm?.active && !input.alt && !input.meta) {
+      const key = input.key.toLowerCase();
+      let action;
+      if (input.control) {
+        if (key === 'o' && !input.shift) action = () => window.webContents.executeJavaScript("document.querySelector('#collection-add')?.click()");
+        else if (key === 'q' && !input.shift) action = () => app.quit();
+        else if (key === 'w' && !input.shift) action = () => window.close();
+        else if (key === '0' && !input.shift) action = () => window.webContents.setZoomLevel(0);
+        else if (['+', '=', '-', '_'].includes(key)) action = () => window.webContents.setZoomLevel(Math.max(-3, Math.min(3, window.webContents.getZoomLevel() + (['-', '_'].includes(key) ? -.5 : .5))));
+      } else if (key === 'f11') action = () => window.setFullScreen(!window.isFullScreen());
+      if (action) { event.preventDefault(); if (!input.isAutoRepeat) action(); return; }
+    }
     if (heldAlarmKey) {
       event.preventDefault();
       if (input.type === 'keyUp' && (input.code || input.key) === heldAlarmKey) heldAlarmKey = null;
@@ -243,6 +255,7 @@ function setupAlarm() {
     try { saveSettings(); }
     catch (error) { settings.language = previous; throw error; }
   });
+  handle('app:quit', () => { setImmediate(() => app.quit()); });
   handle('alarm:get', async () => ({ config: alarm.config, wake: await wake.status(alarm.config), active: alarm.active }));
   handle('auto-import:open-folder', openAutoImportFolder);
   handle('auto-import:choose-folder', async () => {
@@ -275,6 +288,7 @@ function setupAlarm() {
   powerMonitor.on('unlock-screen', () => { if (alarm.active) showWindow(); });
 }
 function createMenu() {
+  if (process.platform === 'win32') { Menu.setApplicationMenu(null); return; }
   Menu.setApplicationMenu(Menu.buildFromTemplate([
     ...(process.platform === 'darwin' ? [{ label: 'Cove', submenu: [{ role: 'about', label: t('Cove 정보') }, { type: 'separator' }, { role: 'hide', label: t('Cove 가리기') }, { role: 'hideOthers', label: t('다른 앱 가리기') }, { role: 'unhide', label: t('모두 보기') }, { type: 'separator' }, { role: 'quit', label: t('Cove 종료') }] }] : []),
     { label: t('파일'), submenu: [
