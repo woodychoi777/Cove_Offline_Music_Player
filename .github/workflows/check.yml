@@ -49,3 +49,10 @@ jobs:
           name: Cove-Windows-x64-candidate
           path: dist/Cove-Setup-*-x64.exe
           if-no-files-found: error
+
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: Cove-Windows-verification
+          path: dist/windows-verification
+          if-no-files-found: ignore
