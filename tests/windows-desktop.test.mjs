@@ -6,14 +6,15 @@ test('Windows packaged app: first window, local import/playback, settings and no
  await writeFile(join(profile,'library.json'),JSON.stringify({language:'en'}));
  const app=await _electron.launch({executablePath:resolve('dist/Cove-win32-x64/Cove.exe'),args:['--mute-audio'],env:{...process.env,COVE_DATA_DIR:data,COVE_PROFILE_DIR:profile}});
  t.after(async()=>{await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows().forEach(w=>w.destroy())).catch(()=>{});await app.close().catch(()=>{});});
+ const nativeKey=(key,modifiers=[])=>app.evaluate(({BrowserWindow},{key,modifiers})=>{const w=BrowserWindow.getAllWindows()[0];w.focus();w.webContents.focus();w.webContents.sendInputEvent({type:'keyDown',keyCode:key,modifiers});w.webContents.sendInputEvent({type:'keyUp',keyCode:key,modifiers});},{key,modifiers});
  const page=await app.firstWindow(),errors=[];page.on('pageerror',e=>errors.push(e.message));await expect(page.getByRole('heading',{name:'Today',exact:true})).toBeVisible();
  assert.equal(await app.evaluate(({Menu})=>Menu.getApplicationMenu()),null);
  assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMenuBarVisible()),false);
- await page.keyboard.press('Alt');assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMenuBarVisible()),false);
+ await nativeKey('Alt');assert.equal(await app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isMenuBarVisible()),false);
  assert.equal(await page.evaluate(()=>window.covePlatform),'win32');assert.equal(await page.evaluate(()=>window.coveMedia),undefined);
  // Today is in the initial HTML. Wait for the renderer to load the library and bind navigation.
  await expect(page.locator('#import-library-path')).not.toHaveText('');
- await page.locator('#main-content').focus();await page.keyboard.press('Control+o');
+ await page.locator('#main-content').focus();await nativeKey('O',['control']);
  await expect(page.locator('[data-view="import"]')).toBeVisible();
  const bytes=playableFlac({title:'Windows 검사',seconds:12});
  await page.locator('#file-input').setInputFiles({name:'한글 음악.flac',mimeType:'audio/flac',buffer:bytes});
@@ -24,10 +25,10 @@ test('Windows packaged app: first window, local import/playback, settings and no
  const url=new URL(page.url()).origin,state=await page.request.get(url+'/api/state').then(r=>r.json());const track=await page.request.get(url+'/api/tracks/'+state.tracks[0].id).then(r=>r.json());assert.deepEqual(await readFile(join(data,'library',track.managedPath)),bytes);
  await page.locator('#settings-open').click();await expect(page.locator('.settings-signature')).toHaveText('Made by woodychoi777');await expect(page.locator('#language-setting')).toHaveValue('en');await page.locator('#alarm-open').click();await expect(page.locator('.alarm-help')).toContainText('Windows wake from sleep is unsupported');await page.keyboard.press('Escape');await expect(page.locator('#app-quit')).toBeVisible();
  await expect(page.locator('#settings-dialog [id^="sleep-timer"]')).toHaveCount(0);await page.keyboard.press('Escape');
- await page.keyboard.press('Control+=');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.getZoomLevel())).toBe(.5);
- await page.keyboard.press('Control+0');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.getZoomLevel())).toBe(0);
- await page.keyboard.press('F11');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFullScreen())).toBe(true);
- await page.keyboard.press('F11');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFullScreen())).toBe(false);
+ await nativeKey('=',['control']);await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.getZoomLevel())).toBe(.5);
+ await nativeKey('0',['control']);await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].webContents.getZoomLevel())).toBe(0);
+ await nativeKey('F11');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFullScreen())).toBe(true);
+ await nativeKey('F11');await expect.poll(()=>app.evaluate(({BrowserWindow})=>BrowserWindow.getAllWindows()[0].isFullScreen())).toBe(false);
  await page.addInitScript(()=>{window.__sleepShift=0;const now=Date.now;Date.now=()=>now()+window.__sleepShift;});await page.reload();
  for(const minutes of [10,15,25,55]){await page.locator('#sleep-timer-open').click();await page.locator(`[data-sleep-minutes="${minutes}"]`).click();await expect(page.locator('[data-timer-badge]')).toHaveText(String(minutes));}
  await page.locator('#sleep-timer-open').click();await page.locator('#sleep-timer-cancel').click();await expect(page.locator('#sleep-timer-open')).not.toHaveClass(/is-active/);
